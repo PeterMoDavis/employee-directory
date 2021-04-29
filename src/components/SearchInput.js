@@ -4,6 +4,7 @@ function SearchInput() {
   const styles = {
     input: {
       width: "200px",
+      border: "none",
     },
   };
 
@@ -11,7 +12,7 @@ function SearchInput() {
     <form action="">
       <div className="form-group d-flex justify-content-center bg-light">
         <input
-          className="form-control my-3"
+          className="form-control-sm my-3"
           style={styles.input}
           type="text"
           placeholder="Search"
