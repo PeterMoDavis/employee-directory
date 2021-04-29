@@ -4,7 +4,7 @@ function Header() {
   const styles = {
     div: {
       backgroundColor: "salmon",
-      paddingBottom: "30px",
+      paddingBottom: "20px",
       paddingTop: "10px",
       color: "navy",
       borderBottom: "solid 3px turquoise",
