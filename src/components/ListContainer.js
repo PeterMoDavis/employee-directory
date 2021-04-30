@@ -19,22 +19,22 @@ class ListContainer extends Component {
   render() {
     return (
       <div>
-        <table className="table table-hover container">
+        <table className="table table-hover table-striped container ">
           <thead>
-            <tr className="d-flex justify-content-between border-top border-bottom">
-              <th className="border-0" scope="col">
+            <tr className="border-top border-bottom">
+              <th className="border-0 align-center text-center" scope="col">
                 Image
               </th>
-              <th className="border-0" scope="col">
+              <th className="border-0 align-center text-center" scope="col">
                 Name
               </th>
-              <th className="border-0" scope="col">
+              <th className="border-0 align-center text-center" scope="col">
                 Phone
               </th>
-              <th className="border-0" scope="col">
+              <th className="border-0 align-center text-center" scope="col">
                 Email
               </th>
-              <th className="border-0" scope="col">
+              <th className="border-0 align-center text-center" scope="col">
                 DOB
               </th>
             </tr>
