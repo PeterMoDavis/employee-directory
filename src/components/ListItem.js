@@ -1,28 +1,30 @@
 import React from "react";
 
-function ListItem() {
+function ListItem(props) {
   const styles = {
     img: {
       width: "75px",
     },
   };
   return (
-    <tr className="d-flex justify-content-around border-bottom align-items-center">
+    <tr className="d-flex justify-content-between border-bottom align-items-center">
       <td className="border-0">
         {" "}
-        <img
-          style={styles.img}
-          src="https://i.picsum.photos/id/729/200/200.jpg?hmac=hCw_uurY9O39ITS0MMk7fNNdWPaY20TzXz2NTAkEslU"
-          alt=""
-        />{" "}
+        <img style={styles.img} src={props.picture} alt="" />{" "}
       </td>
-      <td className="border-0">Gary "Big Dog" Johnson</td>
-      <td className="border-0">(222)222-2222</td>
+      <td className="border-0">
+        {props.first} {props.last}
+      </td>
+      <td className="border-0">
+        {props.phone
+          .replace(/[-\(\) ]/gi, "")
+          .replace(/(\d{3})(\d{3})(\d{4})/, "($1)-$2-$3")}
+      </td>
       <td className="border-0">
         {" "}
-        <a href="emailto:">gary@email.com</a>
+        <a href="emailto:">{props.email}</a>
       </td>
-      <td className="border-0">02-22-74</td>
+      <td className="border-0">{props.DOB}</td>
     </tr>
   );
 }
