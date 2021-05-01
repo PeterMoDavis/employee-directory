@@ -94,7 +94,7 @@ class ListContainer extends Component {
               </th>
               <th
                 onClick={() => this.handleClickDOB()}
-                className="border-0 align-center text-center"
+                className="border-0 align-center text-center DOB"
                 scope="col"
               >
                 DOB

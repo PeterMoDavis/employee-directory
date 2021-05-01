@@ -10,3 +10,7 @@ input:focus {
 .name:hover {
   cursor: pointer;
 }
+
+.DOB:hover {
+  cursor: pointer;
+}
