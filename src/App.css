@@ -6,3 +6,7 @@ body {
 input:focus {
   outline: none;
 }
+
+.name:hover {
+  cursor: pointer;
+}

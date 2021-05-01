@@ -18,6 +18,35 @@ class ListContainer extends Component {
     },
   };
 
+  handleClickName() {
+    this.setState({
+      results: this.state.results.sort((a, b) => {
+        let nameA = a.name.last.toUpperCase();
+        let nameB = b.name.last.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      }),
+    });
+  }
+
+  handleClickDOB() {
+    this.setState({
+      results: this.state.results.sort((a, b) => {
+        let aYear = a.dob.date.substring(0, 4);
+        let bYear = b.dob.date.substring(0, 4);
+
+        return aYear - bYear;
+      }),
+    });
+  }
+
   searchPeople = () => {
     API.search()
       .then((res) => this.setState({ results: res.data.results }))
@@ -50,7 +79,11 @@ class ListContainer extends Component {
               <th className="border-0 align-center text-center" scope="col">
                 Image
               </th>
-              <th className="border-0 align-center text-center" scope="col">
+              <th
+                onClick={() => this.handleClickName()}
+                className="border-0 align-center text-center name"
+                scope="col"
+              >
                 Name
               </th>
               <th className="border-0 align-center text-center" scope="col">
@@ -59,7 +92,11 @@ class ListContainer extends Component {
               <th className="border-0 align-center text-center" scope="col">
                 Email
               </th>
-              <th className="border-0 align-center text-center" scope="col">
+              <th
+                onClick={() => this.handleClickDOB()}
+                className="border-0 align-center text-center"
+                scope="col"
+              >
                 DOB
               </th>
             </tr>
@@ -71,6 +108,9 @@ class ListContainer extends Component {
                   return each;
                 } else if (
                   each.name.first
+                    .toLowerCase()
+                    .includes(this.state.search.toLowerCase()) ||
+                  each.name.last
                     .toLowerCase()
                     .includes(this.state.search.toLowerCase())
                 ) {
@@ -93,50 +133,6 @@ class ListContainer extends Component {
                   />
                 );
               })}
-            {/* {this.state.results.map((each, index) => {
-              if (this.state.search === "") {
-                let dobArr = each.dob.date.slice(0, -14).split("-");
-                let newDOB = `${dobArr[1]}-${dobArr[2]}-${dobArr[0]}`;
-
-                return (
-                  <ListItem
-                    key={index}
-                    first={each.name.first}
-                    last={each.name.last}
-                    picture={each.picture.medium}
-                    phone={each.phone}
-                    email={each.email}
-                    DOB={newDOB}
-                  />
-                );
-              } else {
-                let newArr = this.state.results
-                  .filter((each) => {
-                    if (
-                      each.name.first
-                        .toLowerCase()
-                        .match(new RegExp(`${this.state.search}]`, "ig"))
-                    ) {
-                      return each;
-                    }
-                  })
-                  .map((each) => {
-                    let dobArr = each.dob.date.slice(0, -14).split("-");
-                    let newDOB = `${dobArr[1]}-${dobArr[2]}-${dobArr[0]}`;
-                    return (
-                      <ListItem
-                        key={index}
-                        first={each.name.first}
-                        last={each.name.last}
-                        picture={each.picture.medium}
-                        phone={each.phone}
-                        email={each.email}
-                        DOB={newDOB}
-                      />
-                    );
-                  });
-              }
-            })} */}
           </tbody>
         </table>
       </div>
