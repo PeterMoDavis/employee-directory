@@ -26,13 +26,17 @@ class ListContainer extends Component {
         console.log(error);
       });
   };
+
   render() {
     return (
       <div>
         <form action="">
           <div className="form-group d-flex justify-content-center bg-light">
             <input
-              onChange={(e) => console.log(e.target.value)}
+              onChange={(e) => {
+                this.setState({ search: e.target.value });
+                console.log(this.state.search);
+              }}
               className="form-control-sm my-3"
               style={this.styles.input}
               type="text"
@@ -61,21 +65,78 @@ class ListContainer extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.results.map((each) => {
-              let dobArr = each.dob.date.slice(0, -14).split("-");
-              let newDOB = `${dobArr[1]}-${dobArr[2]}-${dobArr[0]}`;
+            {this.state.results
+              .filter((each) => {
+                if (this.state.search === "") {
+                  return each;
+                } else if (
+                  each.name.first
+                    .toLowerCase()
+                    .includes(this.state.search.toLowerCase())
+                ) {
+                  return each;
+                }
+              })
+              .map((each, index) => {
+                let dobArr = each.dob.date.slice(0, -14).split("-");
+                let newDOB = `${dobArr[1]}-${dobArr[2]}-${dobArr[0]}`;
 
-              return (
-                <ListItem
-                  first={each.name.first}
-                  last={each.name.last}
-                  picture={each.picture.medium}
-                  phone={each.phone}
-                  email={each.email}
-                  DOB={newDOB}
-                />
-              );
-            })}
+                return (
+                  <ListItem
+                    key={index}
+                    first={each.name.first}
+                    last={each.name.last}
+                    picture={each.picture.medium}
+                    phone={each.phone}
+                    email={each.email}
+                    DOB={newDOB}
+                  />
+                );
+              })}
+            {/* {this.state.results.map((each, index) => {
+              if (this.state.search === "") {
+                let dobArr = each.dob.date.slice(0, -14).split("-");
+                let newDOB = `${dobArr[1]}-${dobArr[2]}-${dobArr[0]}`;
+
+                return (
+                  <ListItem
+                    key={index}
+                    first={each.name.first}
+                    last={each.name.last}
+                    picture={each.picture.medium}
+                    phone={each.phone}
+                    email={each.email}
+                    DOB={newDOB}
+                  />
+                );
+              } else {
+                let newArr = this.state.results
+                  .filter((each) => {
+                    if (
+                      each.name.first
+                        .toLowerCase()
+                        .match(new RegExp(`${this.state.search}]`, "ig"))
+                    ) {
+                      return each;
+                    }
+                  })
+                  .map((each) => {
+                    let dobArr = each.dob.date.slice(0, -14).split("-");
+                    let newDOB = `${dobArr[1]}-${dobArr[2]}-${dobArr[0]}`;
+                    return (
+                      <ListItem
+                        key={index}
+                        first={each.name.first}
+                        last={each.name.last}
+                        picture={each.picture.medium}
+                        phone={each.phone}
+                        email={each.email}
+                        DOB={newDOB}
+                      />
+                    );
+                  });
+              }
+            })} */}
           </tbody>
         </table>
       </div>
